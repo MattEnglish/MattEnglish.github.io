@@ -1,17 +1,112 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>My CSS experiment</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <p>This is my first CSS example</p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+    <head>
+        <title>Apply JavaScript example</title>
+        <link rel="stylesheet" href="style.css">
+      </head>
+      <body>
+          <button id = createGame class = square>Create Game</button>
+      
+      
+            
+        <script>
+      /*
+          function createGame() {
+            var para = document.createElement('p');
+            document.body.appendChild(para);
+          }
+      */
+        var rowLength = 5;
+            var colLength = 5;
 
-    <ul>
-      <li>This is</li>
-      <li>a list</li>
-    </ul>
-  </body>
+          function wrap(x)
+          {
+            if(x>4)
+            {
+              return 0;
+            }
+            if(x<0)
+            {
+              return 4;
+            }
+            return x;
+          }
+          var initialArray = [];
+
+          function getColour(x)
+          {
+            if(x == 0)
+            {
+              return "blue";
+            }
+            return "red";
+          }
+
+          function changeColour(row,col)
+          {
+            if(initialArray[row,col]== "red")
+            {
+              initialArray[row,col]= "blue";
+              return "blue";
+            }
+            initialArray[row,col]= "red";
+            return "red";
+          }
+
+
+
+
+
+          function changeColor(i) {
+            id = i.currentTarget.id;
+            rowColumnColour = id.split(",");
+            row = parseInt(rowColumnColour[0]);
+            col = parseInt(rowColumnColour[1]);
+            color = getColour(parseInt(rowColumnColour[2]));
+            var button = document.getElementById(wrap(row+1)+','+wrap(col) + ','+ '0');
+            button.style.color = changeColour(wrap(row+1)+','+wrap(col));
+            var button = document.getElementById(wrap(row)+','+wrap(col+1) + ','+ '0');
+            button.style.color = changeColour(wrap(row)+','+wrap(col+1));
+            var button = document.getElementById(wrap(row)+','+wrap(col-1) + ','+ '0');
+            button.style.color = changeColour(wrap(row)+','+wrap(col-1));
+            var button = document.getElementById(wrap(row-1)+','+wrap(col) + ','+ '0');
+            button.style.color = changeColour(wrap(row-1)+','+wrap(col));
+          }
+
+
+          function createGame() {
+            var newDiv = document.createElement('div');
+            newDiv.className = 'box';
+            
+            for (var i=0; i < rowLength; i++)
+            {
+              for(var j=0; j < colLength; j++)
+              {
+
+              var para = document.createElement('button');
+              para.textContent = 'You clicked the button!';
+              para.className = 'square';
+              para.id = i +',' + j + ',' + '0';
+              para.onclick= changeColor;
+              initialArray[i,j] = 'red';
+              //para.addEventListener('click', changeColor);
+
+            newDiv.appendChild(para);
+            }
+          }
+
+          
+          
+
+            //document.getElementById("button").style.color = "blue";
+
+            document.body.appendChild(newDiv);
+          }
+          var buttons = document.querySelectorAll('button');
+
+          buttons[0].addEventListener('click', createGame);
+
+          
+        </script>
+</body>
 </html>
