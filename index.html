@@ -8,8 +8,6 @@
           <button id = createGame class = square>Create Game</button>
           <li><a href="game.html">Square Platformer over 16 million character classes</a></li>
           <li><a href="Switch.html">A better version of the game below</a></li>
-      
-            
         <script>
       /*
           function createGame() {
@@ -33,6 +31,12 @@
             return x;
           }
           var initialArray = [];
+for(var i=0; i<5; i++) {
+  initialArray[i] = [];
+    for(var j=0; j<5; j++) {
+      initialArray[i][j] = undefined;
+    }
+};
 
           function getColour(x)
           {
@@ -45,13 +49,19 @@
 
           function changeColour(row,col)
           {
-            if(initialArray[row,col]== "red")
+            if(initialArray[row][col]== "red")
             {
-              initialArray[row,col]= "blue";
+              initialArray[row][col]= "blue";
               return "blue";
             }
-            initialArray[row,col]= "red";
+            initialArray[row][col]= "red";
             return "red";
+          }
+
+          function changeButtonColor(row,col)
+          {
+            var button = document.getElementById(wrap(row)+','+wrap(col) + ','+ '0');
+            button.className = changeColour(wrap(row),wrap(col));
           }
 
 
@@ -64,14 +74,11 @@
             row = parseInt(rowColumnColour[0]);
             col = parseInt(rowColumnColour[1]);
             color = getColour(parseInt(rowColumnColour[2]));
-            var button = document.getElementById(wrap(row+1)+','+wrap(col) + ','+ '0');
-            button.style.color = changeColour(wrap(row+1)+','+wrap(col));
-            var button = document.getElementById(wrap(row)+','+wrap(col+1) + ','+ '0');
-            button.style.color = changeColour(wrap(row)+','+wrap(col+1));
-            var button = document.getElementById(wrap(row)+','+wrap(col-1) + ','+ '0');
-            button.style.color = changeColour(wrap(row)+','+wrap(col-1));
-            var button = document.getElementById(wrap(row-1)+','+wrap(col) + ','+ '0');
-            button.style.color = changeColour(wrap(row-1)+','+wrap(col));
+            changeButtonColor(row,col);
+            changeButtonColor(wrap(row+1),wrap(col));
+            changeButtonColor(wrap(row-1),wrap(col));
+            changeButtonColor(wrap(row),wrap(col+1));
+            changeButtonColor(wrap(row),wrap(col-1));
           }
 
 
@@ -86,10 +93,10 @@
 
               var para = document.createElement('button');
               para.textContent = 'You clicked the button!';
-              para.className = 'square';
+              para.className = 'red';
               para.id = i +',' + j + ',' + '0';
               para.onclick= changeColor;
-              initialArray[i,j] = 'red';
+              initialArray[i][j] = 'red';
               //para.addEventListener('click', changeColor);
 
             newDiv.appendChild(para);

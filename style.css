@@ -1,27 +1,33 @@
-h1 {
-  colour: blue;
+.h1 {
+  color: blue;
   background-color: yellow;
   border: 1px solid black;
 }
-
-button {
+.button {
   color: blue;
 }
-
-button2 {
+.button2 {
   color: blue;
 }
-
-p, li {
+.blue {
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+}
+.red {
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
+p,
+li {
   text-decoration: underline;
 }
-
 .box {
   display: flex;
   flex-wrap: wrap;
   width: 500px;
 }
-
 .square {
   width: 100px;
   height: 100px;
