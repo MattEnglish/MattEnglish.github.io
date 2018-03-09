@@ -1,0 +1,107 @@
+<html lang="en">
+    <head>
+        <title>Apply JavaScript example</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <p>Pokemans Caught <p id=pokemansCaught>0</p></p> 
+    </body>
+    <button id=CatchPokemans>Catch a pokemans</button>
+    <button id=TeachPokemans>Teach pokemans to catch pokemans!!!</button>
+    <button id=TeachPokemans2>Teach pokemans to teach pokemans to catch pokemans!!!</button>
+    
+    <script>
+
+        var superNumber = class {
+            constructor(base, exponent) {
+            this.base = base;
+            this.exponent = exponent;
+            }
+            
+            addsuperNumber(num)
+            {
+                if(this.exponent > num.exponent)
+                {
+                    num.base/math.pow(10, this.exponent-num.exponent);
+                }
+                if(this.exponent < num.exponent)
+                {
+                    this.base/math.pow(10, -this.exponent+num.exponent);
+                    this.exponent = num.exponent;
+                }
+                
+                this.base += num.base;
+                while(this.base > 10)
+                {
+                    this.base/10;
+                    this.exponent += 1;
+                }
+            }
+
+            multiplySuperNumber(num)
+            {                
+                this.base = num.base*this.base;
+                this.exponent += num.exponent;
+                while(this.base > 10)
+                {
+                    this.base/10;
+                    this.exponent += 1;
+                }
+            }
+
+            toString() {
+                this.base.toString() + 'e+' + this.exponent.toString();
+            }
+        }
+
+
+        var pokemansCaught = new superNumber(0,0);
+        var pokemansTaught = new superNumber(0,0);
+        var pokemansTaught2 = new superNumber(0,0);
+
+        
+
+        function catchPokemans() {
+            pokemansCaught.base++;
+            caughtText = document.getElementById('pokemansCaught');
+            caughtText.innerHTML = pokemansCaught;
+        }
+
+        function teachPokemans() {
+            pokemansTaught.base++;
+        }
+
+        function teachPokemans2() {
+            pokemansTaught2.base++;
+        }
+
+        function pokemansCatchPokemans() {
+            pokemansCaught.addsuperNumber(pokemansTaught.multiplySuperNumber(pokemansCaught));
+            caughtText = document.getElementById('pokemansCaught');
+            caughtText.innerHTML = pokemansCaught;
+        }
+
+        function pokemansTeachPokemans() {
+            pokemansTaught+= pokemansTaught2*pokemansCaught;
+            caughtText = document.getElementById('pokemansCaught');
+            caughtText.innerHTML = pokemansCaught.toString();
+        }
+
+        setInterval(pokemansCatchPokemans,100);
+        setInterval(pokemansTeachPokemans,100);
+        
+
+
+        var btnCatchPokemans = document.getElementById('CatchPokemans');
+        btnCatchPokemans.addEventListener('click', catchPokemans)
+
+        var btnTeachPokemans = document.getElementById('TeachPokemans');
+        btnTeachPokemans.addEventListener('click', teachPokemans)
+
+        var btnTeachPokemans = document.getElementById('TeachPokemans2');
+        btnTeachPokemans.addEventListener('click', teachPokemans2)
+
+        
+    </script>
+
+</html>
