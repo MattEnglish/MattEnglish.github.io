@@ -20,37 +20,42 @@
             
             addsuperNumber(num)
             {
+                var base;
+                var exponent;
                 if(this.exponent > num.exponent)
                 {
-                    num.base/math.pow(10, this.exponent-num.exponent);
+                    base = num.base/Math.pow(10, this.exponent-num.exponent);
+                    exponent = this.exponent;
                 }
-                if(this.exponent < num.exponent)
+                else(this.exponent < num.exponent)
                 {
-                    this.base/math.pow(10, -this.exponent+num.exponent);
-                    this.exponent = num.exponent;
+                    base = this.base/Math.pow(10, -this.exponent+num.exponent);
+                    exponent = num.exponent;
                 }
                 
-                this.base += num.base;
-                while(this.base > 10)
+                base = this.base + num.base;
+                while(base > 10)
                 {
-                    this.base/10;
-                    this.exponent += 1;
+                    base = base/10;
+                    exponent += 1;
                 }
+                return new superNumber(base,exponent);
             }
 
             multiplySuperNumber(num)
             {                
-                this.base = num.base*this.base;
-                this.exponent += num.exponent;
-                while(this.base > 10)
+                var base = num.base*this.base;
+                var exponent = num.exponent+this.exponent;
+                while(base > 10)
                 {
-                    this.base/10;
-                    this.exponent += 1;
+                    base = base/10;
+                    exponent += 1;
                 }
+                return new superNumber(base, exponent);
             }
 
             toString() {
-                this.base.toString() + 'e+' + this.exponent.toString();
+                return this.base.toString() + 'e+' + this.exponent.toString();
             }
         }
 
@@ -63,8 +68,7 @@
 
         function catchPokemans() {
             pokemansCaught.base++;
-            caughtText = document.getElementById('pokemansCaught');
-            caughtText.innerHTML = pokemansCaught;
+            updatePokemansCaughtText(pokemansCaught);
         }
 
         function teachPokemans() {
@@ -76,15 +80,22 @@
         }
 
         function pokemansCatchPokemans() {
-            pokemansCaught.addsuperNumber(pokemansTaught.multiplySuperNumber(pokemansCaught));
-            caughtText = document.getElementById('pokemansCaught');
-            caughtText.innerHTML = pokemansCaught;
+            var pokemansCatchRate = pokemansTaught.multiplySuperNumber(pokemansCaught)
+            pokemansCaught = pokemansCaught.addsuperNumber(pokemansCatchRate);
+            updatePokemansCaughtText(pokemansCaught);
         }
 
         function pokemansTeachPokemans() {
-            pokemansTaught+= pokemansTaught2*pokemansCaught;
+            var pokemansTeachRate = pokemansTaught2.multiplySuperNumber(pokemansCaught);
+            pokemansTaught = pokemansTaught.addsuperNumber(pokemansTeachRate)
             caughtText = document.getElementById('pokemansCaught');
             caughtText.innerHTML = pokemansCaught.toString();
+        }
+
+        function updatePokemansCaughtText(superNum) {
+            caughtText = document.getElementById('pokemansCaught');
+            text = superNum.toString();
+            caughtText.innerHTML = text;
         }
 
         setInterval(pokemansCatchPokemans,100);
